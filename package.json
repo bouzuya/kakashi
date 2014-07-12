@@ -1,0 +1,35 @@
+{
+  "name": "kakashi",
+  "version": "0.0.0",
+  "description": "A test driver for Hubot scripts.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "coffee -b -o lib -c src",
+    "test": "mocha --compilers coffee:coffee-script/register --reporter spec --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bouzuya/kakashi.git"
+  },
+  "keywords": [
+    "hubot",
+    "test"
+  ],
+  "author": "bouzuya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bouzuya/kakashi/issues"
+  },
+  "homepage": "https://github.com/bouzuya/kakashi",
+  "dependencies": {
+    "sinon": "^1.10.3",
+    "hubot": "^2.7.5",
+    "q": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-script": "^1.7.1",
+    "mocha": "^1.20.1",
+    "sinon-chai": "^2.5.0"
+  }
+}
