@@ -1,6 +1,6 @@
 # kakashi
 
-A test driver for Hubot scripts.
+A test driver for [Hubot][hubot] scripts.
 
 ## Installation
 
@@ -58,3 +58,4 @@ describe('hello', function() {
 MIT
 
 [bouzuya/hubot-url]: https://github.com/bouzuya/hubot-url
+[hubot]: https://github.com/github/hubot
