@@ -15,10 +15,10 @@ class Kakashi
 
   start: ->
     new Promise (resolve, reject) =>
-      @robot = new Robot(null, 'mock-adapter', @_httpd, @_name)
+      @robot = new Robot(__dirname, 'shell', @_httpd, @_name)
       @adapter = @robot.adapter # expose
       @_sinon = sinon.sandbox.create()
-      @robot.adapter.once 'connected', =>
+      @robot.adapter.on 'connected', =>
         if @_spy
           [
             'send'
@@ -30,17 +30,11 @@ class Kakashi
           ].forEach (method) =>
             @[method] = @_sinon.stub @robot.adapter, method, =>
               if @[method].callCount >= @_maxCallCount
-                @robot.adapter.emit 'finish'
-        @robot.catchAll =>
-          @robot.adapter.emit 'finish'
-        @robot.on 'error', =>
-          @robot.adapter.emit 'finish'
-        @robot.catchAll =>
-          @robot.adapter.emit 'finish'
-        @scripts.forEach (script) =>
-          script @robot
-        @users.forEach (user) =>
-          @robot.brain.userForId user.id, user.options
+                @resolve()
+        @robot.on 'error', => @resolve()
+        @robot.catchAll => @resolve()
+        @scripts.forEach (script) => script @robot
+        @users.forEach (user) => @robot.brain.userForId user.id, user.options
         resolve()
       @robot.run()
 
@@ -48,14 +42,14 @@ class Kakashi
     new Promise (resolve, reject) =>
       @_sinon.restore()
       clearTimeout(@_timeoutId)
-      @robot.brain.once 'close', -> resolve()
+      @robot.brain.on 'close', -> resolve()
       @robot.shutdown()
-      @robot = null
 
   receive: (user, text)->
     new Promise (resolve, reject) =>
+      @resolve = resolve
+      @reject = reject
       @robot.adapter.receive new TextMessage(user, text)
-      @robot.adapter.once 'finish', -> resolve()
       @_timeoutId = setTimeout (-> reject(new Error('timeout'))), @_timeout
 
   # define setters

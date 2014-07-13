@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/bouzuya/kakashi",
   "dependencies": {
-    "hubot-mock-adapter": "^1.0.0",
     "hubot": "^2.7.5",
     "q": "^1.0.1",
     "sinon": "^1.10.3"
