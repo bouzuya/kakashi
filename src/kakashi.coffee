@@ -33,8 +33,8 @@ class Kakashi
                 @resolve()
         @robot.on 'error', => @resolve()
         @robot.catchAll => @resolve()
-        @scripts.forEach (script) => script @robot
         @users.forEach (user) => @robot.brain.userForId user.id, user.options
+        @scripts.forEach (script) => script @robot
         resolve()
       @robot.run()
 
