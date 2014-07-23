@@ -40,7 +40,7 @@ describe('hello', function() {
   describe('receive "hello"', function() {
     it('send "hello!"', function(done) {
       this.kakashi
-        .receive('hello')
+        .receive({ room: 'my-room' }, 'hello')
         .then(function() {
           expect(this.kakashi.send.firstCall.args[1]).to
             .equal('hello!');
