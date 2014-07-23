@@ -65,7 +65,7 @@ class Kakashi
         @_rejects[method] = null
     resolve.apply @, args if resolve?
 
-  reject: ->
+  reject: (args...) ->
     reject = null
     ['start', 'receive'].forEach (method) =>
       if @_rejects[method]?
