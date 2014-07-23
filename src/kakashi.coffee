@@ -54,7 +54,7 @@ class Kakashi
       @_resolves.receive = resolve
       @_rejects.receive = reject
       @robot.adapter.receive new TextMessage(user, text)
-      @_timeoutId = setTimeout (-> @reject(new Error('timeout'))), @_timeout
+      @_timeoutId = setTimeout (=> @reject(new Error('timeout'))), @_timeout
 
   resolve: (args...) ->
     resolve = null
